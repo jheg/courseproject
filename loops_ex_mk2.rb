@@ -41,7 +41,7 @@ end
 
 def count_to_zero(num)
   if num < 0
-    puts "you cannot enter a neagtive number try again using a positive number:"
+    puts "you cannot enter a negative number try again using a positive number:"
     num = gets.chomp.to_i
     count_to_zero(num)
   elsif num == 0
