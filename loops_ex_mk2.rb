@@ -40,7 +40,11 @@ end
 # 4 
 
 def count_to_zero(num)
-  if num <= 0
+  if num < 0
+    puts "you cannot enter a neagtive number try again using a positive number:"
+    num = gets.chomp.to_i
+    count_to_zero(num)
+  elsif num == 0
     puts num
   else
     puts num
@@ -48,8 +52,7 @@ def count_to_zero(num)
   end
 end
 
-count_to_zero(20)
-count_to_zero(-3)
+count_to_zero(-20)
 
 
 
