@@ -22,6 +22,13 @@ end
 #   end
 # end
 
+x = ''
+
+while x != "STOP" do
+  puts "want me to ask again?"
+  x = gets.chomp.upcase # added this so user can enter stop, sToP, STop etc
+end
+
 # 3 
 
 my_array = ["Jason", "Vic", "Charlie", "Annie"]
@@ -33,14 +40,21 @@ end
 # 4 
 
 def count_to_zero(num)
-  while num > 0
+  if num <= 0
     puts num
-    num = num - 1
+  else
+    puts num
+    count_to_zero(num - 1)
   end
 end
 
 count_to_zero(20)
 count_to_zero(-3)
+
+
+
+
+
 
 
 
