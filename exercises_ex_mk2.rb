@@ -4,10 +4,11 @@
 
 # 2
 
-a = [1,2,3,4,5,6,7,8,9,10].select{|num| num > 5}
-puts a
+a = [1,2,3,4,5,6,7,8,9,10]
+a.select{|num| puts num if num > 5}
 
-[1,2,3,4,5,6,7,8,9,10].select do |num|
+
+a.select do |num|
   if num > 5
     puts num
   end
