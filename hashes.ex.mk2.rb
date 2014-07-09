@@ -71,7 +71,6 @@ puts persons.has_value?("Jason")
 
 words = ["demo", "none", "tied", "evil", "dome", "mode", "live", "fowl", "veil", "wolf", "diet", "vile", "edit", "tide", "flow", "neon"]
 
-
 result = {}
 
 words.each do |word|
@@ -84,11 +83,21 @@ words.each do |word|
 end
 
 result.each do |k,v|
-  puts "-------"
+  puts "--------"
   puts "#{k}: #{v}"
 end
+
 
 # cycle through each element in array and take the letters into a new variable sorted in alphabetical order. 
 # Compare that variable with the other words in the array and then sot it into an array accordingly.
 
+# 7 first hash uses a symbol as its key the second the string assigned to the variable x
+x = "Hi there"
+my_hash = {x: "Jason"}
+my_hash2 = {x => "Jason"}
 
+p my_hash
+p my_hash2
+
+# 8 
+# There is no method called keys for array objects
