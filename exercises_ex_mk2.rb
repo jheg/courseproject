@@ -122,26 +122,27 @@ puts "Joes email is #{contacts["Joe Smith"][:email]}"
 peeps = {"Jason Hegarty" => {}, "Victoria Rance" => {}}
 peeps_data = [["37", "jason@jheg.co.uk", "48 The Strand"], ["36", "emailrance@gmail.com", "48 The Strand"]]
 fields = [:age, :email, :address]
+  
 
 peeps.each do |name,hash|
-  if peeps["Jason Hegarty"]
     fields.each do |field|
-        hash[field] = peeps_data.first.shift
-        puts "-----"
-        puts peeps_data
-        puts "-----"
+        i = 0 
+        if peeps_data[i].empty?
+          i = i + 1
+          hash[field] = peeps_data[i].shift
+          puts "-----"
+          puts peeps_data
+          puts "-----"  
+        else
+          hash[field] = peeps_data[i].shift
+          puts "-----"
+          puts peeps_data
+          puts "-----"
+        end
     end
-  elsif peeps["victoria Rance"]
-    fields.each do |field|
-        hash[field] = peeps_data.last.shift
-        puts "-----"
-        puts peeps_data
-        puts "-----"
-    end
-  end
 end
 
 puts peeps
-  
+
 
 
