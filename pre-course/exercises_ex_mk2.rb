@@ -145,5 +145,52 @@ end
 
 puts peeps
 
+# 15
+
+arr = %w(word snow skill slight weather waves buns football ruby php css)
+
+arr.delete_if{|word| word.start_with?("s", "w")}
+
+puts arr
+
+
+
+# 14 revisited Chris Lees solution from the forum.
+contacts = {"Jason Hegarty" => {}, "Victoria Rance" => {}, "Charlie Hegarty" => {}}
+contact_data = [["37", "jason@jheg.co.uk", "48 The Strand"], ["36", "emailrance@gmail.com", "48 The Strand"], ["6", "no_email", "48 The Strand"]]
+fields = [:age, :email, :address]
+
+
+counter = 0
+contacts.each do |name, hash|
+  fields.each_with_index do |field, idx|
+    hash[field] = contact_data[counter][idx]
+  end
+  counter += 1
+end
+puts "/\/\/\/\/\/\/\/\/\/\/"
+puts contacts
+puts "/\/\/\/\/\/\/\/\/\/\/"
+
+# 16
+
+a = ['white snow', 'winter wonderland', 'melting ice', 'slippery sidewalk', 'salted roads', 'white trees']
+b = a.map{|words|words.split}
+b.flatten!
+p a
+p b 
+
+# 17 
+
+hash1 = {shoes: "nike", "hat" => "adidas", :hoodie => true} 
+hash2 = {"hat" => "adidas", :shoes => "nike", hoodie: true}
+
+if hash1 == hash2
+  puts "same"
+else
+  puts "not same"
+end
+
+
 
 
