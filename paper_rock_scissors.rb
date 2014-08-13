@@ -45,8 +45,15 @@ while again == 'y'
     elsif users_choice == "Rock" && comp == "Paper"
       puts "#{comp} covers #{users_choice}"
       puts "You lose!"
+    elsif users_choice == "Rock" && comp == "Scissors"
+      puts "#{users_choice} blunts #{comp}"
+      puts "You win!"
+    elsif users_choice == "Scissors" && comp == "Paper"
+      puts "#{users_choice} cuts #{comp}"
+      puts "You win!"
     else
-      puts "something else"
+      puts "#{comp} blunts #{users_choice}"
+      puts "You lose!"
     end
 
 puts "Play again? (Y/N)"
