@@ -16,7 +16,8 @@ while again == 'y'
 
   puts "Choose One: (P/R/S)"
   ans = gets.chomp
-  while ans != 'p' && ans != 'r' && ans != 's'
+  ans.upcase!
+  while ans != 'P' && ans != 'R' && ans != 'S'
     puts "Choose One: (P/R/S)"
     ans = gets.chomp
   end
@@ -39,7 +40,7 @@ while again == 'y'
   else
     puts "something else"
   end
-  
+
 puts "Play again? (Y/N)"
 again = gets.chomp
 
