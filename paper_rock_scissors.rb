@@ -6,9 +6,6 @@ end
 
 
 objects = %w(Paper Rock Scissors)
-p = 0
-r = 1
-s = 2
 
 again = 'y'
 
@@ -17,11 +14,23 @@ while again == 'y'
   puts "Choose One: (P/R/S)"
   ans = gets.chomp
   ans.upcase!
+
   while ans != 'P' && ans != 'R' && ans != 'S'
     puts "Choose One: (P/R/S)"
     ans = gets.chomp
   end
-  users_choice = objects[ans.to_i]
+
+if ans == "P"
+  users_choice = objects[0]
+elsif ans == "R"
+  users_choice = objects[1]
+else
+  users_choice = objects[2]
+end
+binding.pry
+    
+
+
   comp = objects.sample
   say("You chose #{users_choice}")
   say("Computer chose #{comp}")
@@ -36,6 +45,9 @@ while again == 'y'
     puts "You win!"
   elsif users_choice == "Paper" && comp == "Scissors"
     puts "#{comp} cuts #{users_choice}"
+    puts "You lose!"
+  elsif users_choice == "Rock" && comp == "Paper"
+    puts "#{comp} covers #{users_choice}"
     puts "You lose!"
   else
     puts "something else"
