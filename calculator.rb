@@ -1,3 +1,5 @@
+# require 'pry'
+
 def say(msg)
   puts "=> #{msg}"
 end
@@ -13,17 +15,22 @@ puts "The second number is #{num2}"
 say "1) add 2) subtract 3) multiply 4) divide"
 operator = gets.chomp
 
-if operator.to_i != 1 || operator.to_i != 2 || operator.to_i != 3 || operator.to_i != 4
+
+while operator.to_i != 1 && operator.to_i != 2 && operator.to_i != 3 && operator.to_i != 4
   say "you need to enter a number"
   say "1) add 2) subtract 3) multiply 4) divide"
   operator = gets.chomp
-elsif operator.to_i == 1
-  puts "you chose to add #{num1} to #{num2}"
+end
+
+# binding.pry
+
+if operator.to_i == 1
+  puts "you chose to add #{num1} to #{num2} which equals #{num1.to_i + num2.to_i}"
 elsif operator.to_i == 2
-  puts "you chose subtract #{num2} from #{num1}"
+  puts "you chose subtract #{num2} from #{num1} which equals #{num1.to_i - num2.to_i}"
 elsif operator.to_i == 3
-  puts "you chose multiply #{num1} with #{num2}"
+  puts "you chose multiply #{num1} with #{num2} which equals #{num1.to_i * num2.to_i}"
 else
-  puts "you chose divide #{num1} by #{num2}"
+  puts "you chose divide #{num1} by #{num2} which equals #{num1.to_f / num2.to_f}"
 end
 
