@@ -18,7 +18,7 @@ board_squares = {1 => " ",2 => " ",3 => " ",4 => " ",5 => " ",6 => " ",7 => " ",
 
 # Available squares
 def available_squares(h)
-  h.select {|k,v| h[k] == " "}.keys
+  h.select {|_,v| v == " "}.keys
 end
 
 # players stored in array so player can be chosen at random
@@ -37,19 +37,18 @@ end
 
 # show players the empty board
 draw_board(board_squares)
+
 # player/computer picks square methods
-
-def player1(g)
-    puts "Choose an available square from #{available_squares(g)}"
-    i = gets.chomp.to_i    
-      if available_squares(g).include?(i)
-        g[i] = "x"
-      else
-        player1(g)
-      end     
-    draw_board(g)
+def player1(g) 
+      puts "Choose an available square from #{available_squares(g)}"
+      i = gets.chomp.to_i    
+        if available_squares(g).include?(i)
+          g[i] = "x"
+        else
+          player1(g)
+        end     
+      draw_board(g)
 end
-
 def player2(g)
     puts "Computer chooses a square"
     sleep 1
@@ -58,10 +57,19 @@ def player2(g)
     draw_board(g)
 end
 
-begin
-  player1(board_squares)
-  player2(board_squares)
-end until available_squares(board_squares).empty?
+goes_first = players.sample
+
+if goes_first == 'player1'
+  begin
+    player1(board_squares)
+    player2(board_squares)
+  end until available_squares(board_squares).empty?
+elsif goes_first == 'player2'
+  begin
+    player2(board_squares)
+    player1(board_squares)
+  end until available_squares(board_squares).empty?
+end
 
 puts "GAME OVER"
 puts "Play again? (y/n)"
