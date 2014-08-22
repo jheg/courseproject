@@ -11,7 +11,7 @@ require 'pry'
 
 play_again = 'y'
 
-
+while play_again == 'y'
 
 # initialize the empty hash that will store the board squares
 board_squares = {1 => " ",2 => " ",3 => " ",4 => " ",5 => " ",6 => " ",7 => " ",8 => " ",9 => " "}
@@ -41,14 +41,12 @@ draw_board(board_squares)
 
 def player1(g)
     puts "Choose an available square from #{available_squares(g)}"
-    i = gets.chomp.to_i
-    
+    i = gets.chomp.to_i    
       if available_squares(g).include?(i)
         g[i] = "x"
       else
         player1(g)
-      end 
-     
+      end     
     draw_board(g)
 end
 
@@ -68,6 +66,8 @@ end until available_squares(board_squares).empty?
 puts "GAME OVER"
 puts "Play again? (y/n)"
 play_again = gets.chomp
+
+end
 
 # Run conditional to decide which method to invoke - player or computer
 # def goes_first(a)
