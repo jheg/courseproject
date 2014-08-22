@@ -40,7 +40,7 @@ draw_board(board_squares)
 # player/computer picks square methods
 
 def player1(g)
-    puts "Choose an available square #{available_squares(g)}"
+    puts "Choose an available square from #{available_squares(g)}"
     i = gets.chomp.to_i
     
       if available_squares(g).include?(i)
