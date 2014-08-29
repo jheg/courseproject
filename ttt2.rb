@@ -1,7 +1,6 @@
- # Initialize board hash
+# Initialize board hash
 # Draw board
 # Choose at random who goes first
-
 # Player/Computer has a turn if square available
 # check for winner
 
@@ -79,36 +78,32 @@ def player2(line, squares)
     puts "Computer chooses a square"
     sleep 0.5
 
-# if player has two positions in a line and the other is empty defend else attack < not yet implemented
     defend_this_square = nil
     attacked = false
-      # attack 
-      WINNING_LINES.each do |l|
+    
+    # attack 
+    WINNING_LINES.each do |l|
 
-        defend_this_square = two_in_a_row?({l[0] => squares[l[0]], l[1] => squares[l[1]], l[2] => squares[l[2]]}, O)
-          if defend_this_square
-            squares[defend_this_square] = 'o'
-            attacked = true
-            break
-          end
-      end
-
-      
-      # defend  
-      if attacked == false
-      WINNING_LINES.each do |l|
-        defend_this_square = two_in_a_row?({l[0] => squares[l[0]], l[1] => squares[l[1]], l[2] => squares[l[2]]}, X)
-          if defend_this_square
+      defend_this_square = two_in_a_row?({l[0] => squares[l[0]], l[1] => squares[l[1]], l[2] => squares[l[2]]}, O)
+        if defend_this_square
           squares[defend_this_square] = 'o'
+          attacked = true
           break
-          end 
-      end
-      end
+        end
+    end
+    
+    # defend  
+    if attacked == false
+    WINNING_LINES.each do |l|
+      defend_this_square = two_in_a_row?({l[0] => squares[l[0]], l[1] => squares[l[1]], l[2] => squares[l[2]]}, X)
+        if defend_this_square
+        squares[defend_this_square] = 'o'
+        break
+        end 
+    end
+    end
 
-     
-
-      squares[available_squares(squares).sample] = "o" unless defend_this_square
-
+    squares[available_squares(squares).sample] = "o" unless defend_this_square
     draw_board(squares)
 end
 
