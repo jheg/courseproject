@@ -6,29 +6,10 @@
 
 require 'pry'
 
-# play again?
-play_again = 'y'
-
-while play_again == 'y'
-
-# initialize the empty hash that will store the board squares
-board_squares = {1 => " ",2 => " ",3 => " ",4 => " ",5 => " ",6 => " ",7 => " ",8 => " ",9 => " "}
-
-# rows columns and diagonals
-WINNING_LINES = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]]
-
-# markers
-X = 'x'
-O = 'o'
-
-
 # Available squares
 def available_squares(squares)
   squares.select {|_,v| v == " "}.keys
 end
-
-# players stored in array so player can be chosen at random
-players = ["player1", "player2"]
 
 # draw the board
 def draw_board(squares)
@@ -51,7 +32,14 @@ def check_for_winner(line, squares)
   end
 end
 
-
+# checks to see if two in a row
+def two_in_a_row?(hsh, mrkr)
+  if hsh.values.count(mrkr) == 2
+    return hsh.select{|k,v| v == ' '}.keys.first
+  else
+    return false
+  end
+end
 # player/computer picks square methods
 def player1(squares)
     if available_squares(squares).any?
@@ -66,14 +54,7 @@ def player1(squares)
     end
 end
 
-def two_in_a_row?(hsh, mrkr)
-  if hsh.values.count(mrkr) == 2
-    return hsh.select{|k,v| v == ' '}.keys.first
-  else
-    return false
-  end
-end
-
+# player 2
 def player2(line, squares)
     puts "Computer chooses a square"
     sleep 0.5
@@ -107,36 +88,53 @@ def player2(line, squares)
     draw_board(squares)
 end
 
-# setting the who goes first variable
-goes_first = players.sample
-
-# show players the empty board
-draw_board(board_squares)
-
-# Conditional that checks which loop to execute: player 1 or player 2
-if goes_first == 'player1'
-  begin
-    break if check_for_winner(WINNING_LINES, board_squares) == true
-    player1(board_squares)
-    break if check_for_winner(WINNING_LINES, board_squares) == true
-    player2(WINNING_LINES, board_squares)
-  end until available_squares(board_squares).empty?
-elsif goes_first == 'player2'
-  begin
-    break if check_for_winner(WINNING_LINES, board_squares) == true
-    player2(WINNING_LINES, board_squares)
-    break if check_for_winner(WINNING_LINES, board_squares) == true
-    player1(board_squares)
-  end until available_squares(board_squares).empty?
-end
-
-sleep 0.5
-puts "GAME OVER"
-
-
 # play again?
-sleep 0.5
-puts "Play again? (y/n)"
-play_again = gets.chomp
+play_again = 'y'
+
+while play_again == 'y'
+
+  # initialize the empty hash that will store the board squares
+  board_squares = {1 => " ",2 => " ",3 => " ",4 => " ",5 => " ",6 => " ",7 => " ",8 => " ",9 => " "}
+
+  # rows columns and diagonals
+  WINNING_LINES = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]]
+
+  # markers
+  X = 'x'
+  O = 'o'
+
+  # players stored in array so player can be chosen at random
+  players = ["player1", "player2"]
+
+  # setting the who goes first variable
+  goes_first = players.sample
+
+  # show players the empty board
+  draw_board(board_squares)
+
+  # Conditional that checks which loop to execute: player 1 or player 2
+  if goes_first == 'player1'
+    begin
+      break if check_for_winner(WINNING_LINES, board_squares) == true
+      player1(board_squares)
+      break if check_for_winner(WINNING_LINES, board_squares) == true
+      player2(WINNING_LINES, board_squares)
+    end until available_squares(board_squares).empty?
+  elsif goes_first == 'player2'
+    begin
+      break if check_for_winner(WINNING_LINES, board_squares) == true
+      player2(WINNING_LINES, board_squares)
+      break if check_for_winner(WINNING_LINES, board_squares) == true
+      player1(board_squares)
+    end until available_squares(board_squares).empty?
+  end
+
+  sleep 0.5
+  puts "GAME OVER"
+
+  # play again?
+  sleep 0.5
+  puts "Play again? (y/n)"
+  play_again = gets.chomp
 
 end
