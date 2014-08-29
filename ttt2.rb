@@ -18,6 +18,11 @@ board_squares = {1 => " ",2 => " ",3 => " ",4 => " ",5 => " ",6 => " ",7 => " ",
 # rows columns and diagonals
 WINNING_LINES = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]]
 
+# markers
+X = 'x'
+O = 'o'
+
+
 # Available squares
 def available_squares(squares)
   squares.select {|_,v| v == " "}.keys
@@ -62,8 +67,8 @@ def player1(squares)
     end
 end
 
-def two_in_a_row?(hsh)
-  if hsh.values.count('x') == 2
+def two_in_a_row?(hsh, mrkr)
+  if hsh.values.count(mrkr) == 2
     return hsh.select{|k,v| v == ' '}.keys.first
   else
     return false
@@ -76,15 +81,34 @@ def player2(line, squares)
 
 # if player has two positions in a line and the other is empty defend else attack < not yet implemented
     defend_this_square = nil
-    WINNING_LINES.each do |l|
-      defend_this_square = two_in_a_row?({l[0] => squares[l[0]], l[1] => squares[l[1]], l[2] => squares[l[2]]})
-      if defend_this_square
-        squares[defend_this_square] = 'o'
-        break
-      end
-    end
+    attacked = false
+      # attack 
+      WINNING_LINES.each do |l|
 
-    squares[available_squares(squares).sample] = "o" unless defend_this_square
+        defend_this_square = two_in_a_row?({l[0] => squares[l[0]], l[1] => squares[l[1]], l[2] => squares[l[2]]}, O)
+          if defend_this_square
+            squares[defend_this_square] = 'o'
+            attacked = true
+            break
+          end
+      end
+
+      
+      # defend  
+      if attacked == false
+      WINNING_LINES.each do |l|
+        defend_this_square = two_in_a_row?({l[0] => squares[l[0]], l[1] => squares[l[1]], l[2] => squares[l[2]]}, X)
+          if defend_this_square
+          squares[defend_this_square] = 'o'
+          break
+          end 
+      end
+      end
+
+     
+
+      squares[available_squares(squares).sample] = "o" unless defend_this_square
+
     draw_board(squares)
 end
 
