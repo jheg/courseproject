@@ -6,6 +6,14 @@
 
 require 'pry'
 
+# constants
+# rows columns and diagonals
+WINNING_LINES = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]]
+
+# markers
+X = 'x'
+O = 'o'
+
 # Available squares
 def available_squares(squares)
   squares.select {|_,v| v == " "}.keys
@@ -37,55 +45,55 @@ def two_in_a_row?(hsh, mrkr)
   if hsh.values.count(mrkr) == 2
     return hsh.select{|k,v| v == ' '}.keys.first
   else
-    return false
+    false
   end
 end
+
 # player/computer picks square methods
+# player 1
 def player1(squares)
-    if available_squares(squares).any?
-      puts "Choose an available square from #{available_squares(squares)}"
-      i = gets.chomp.to_i
-        if available_squares(squares).include?(i)
-          squares[i] = "x"
-        else
-          player1(squares)
-        end
-      draw_board(squares)
-    end
+  if available_squares(squares).any?
+    puts "Choose an available square from #{available_squares(squares)}"
+    i = gets.chomp.to_i
+      if available_squares(squares).include?(i)
+        squares[i] = "x"
+      else
+        player1(squares)
+      end
+    draw_board(squares)
+  end
 end
 
 # player 2
 def player2(line, squares)
-    puts "Computer chooses a square"
-    sleep 0.5
+  puts "Computer chooses a square"
+  sleep 0.5
 
-    defend_this_square = nil
-    attacked = false
-    
-    # attack 
-    WINNING_LINES.each do |l|
-
-      defend_this_square = two_in_a_row?({l[0] => squares[l[0]], l[1] => squares[l[1]], l[2] => squares[l[2]]}, O)
-      if defend_this_square
-        squares[defend_this_square] = 'o'
-        attacked = true
-        break
-      end
+  defend_this_square = nil
+  attacked = false
+  
+  # attack 
+  WINNING_LINES.each do |l|
+    defend_this_square = two_in_a_row?({l[0] => squares[l[0]], l[1] => squares[l[1]], l[2] => squares[l[2]]}, O)
+    if defend_this_square
+      squares[defend_this_square] = 'o'
+      attacked = true
+      break
     end
-    
-    # defend  
-    if attacked == false
+  end
+  
+  # defend  
+  if attacked == false
     WINNING_LINES.each do |l|
       defend_this_square = two_in_a_row?({l[0] => squares[l[0]], l[1] => squares[l[1]], l[2] => squares[l[2]]}, X)
-        if defend_this_square
-          squares[defend_this_square] = 'o'
-          break
-        end 
+      if defend_this_square
+        squares[defend_this_square] = 'o'
+        break
+      end 
     end 
-    end
-
-    squares[available_squares(squares).sample] = "o" unless defend_this_square
-    draw_board(squares)
+  end
+  squares[available_squares(squares).sample] = "o" unless defend_this_square
+  draw_board(squares)
 end
 
 # play again?
@@ -95,13 +103,6 @@ while play_again == 'y'
 
   # initialize the empty hash that will store the board squares
   board_squares = {1 => " ",2 => " ",3 => " ",4 => " ",5 => " ",6 => " ",7 => " ",8 => " ",9 => " "}
-
-  # rows columns and diagonals
-  WINNING_LINES = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]]
-
-  # markers
-  X = 'x'
-  O = 'o'
 
   # players stored in array so player can be chosen at random
   players = ["player1", "player2"]
