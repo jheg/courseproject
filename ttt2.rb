@@ -66,11 +66,11 @@ def player2(line, squares)
     WINNING_LINES.each do |l|
 
       defend_this_square = two_in_a_row?({l[0] => squares[l[0]], l[1] => squares[l[1]], l[2] => squares[l[2]]}, O)
-        if defend_this_square
-          squares[defend_this_square] = 'o'
-          attacked = true
-          break
-        end
+      if defend_this_square
+        squares[defend_this_square] = 'o'
+        attacked = true
+        break
+      end
     end
     
     # defend  
@@ -78,10 +78,10 @@ def player2(line, squares)
     WINNING_LINES.each do |l|
       defend_this_square = two_in_a_row?({l[0] => squares[l[0]], l[1] => squares[l[1]], l[2] => squares[l[2]]}, X)
         if defend_this_square
-        squares[defend_this_square] = 'o'
-        break
+          squares[defend_this_square] = 'o'
+          break
         end 
-    end
+    end 
     end
 
     squares[available_squares(squares).sample] = "o" unless defend_this_square
