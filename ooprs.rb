@@ -1,7 +1,4 @@
-# 1. Have detailed requirements or specifications in written form.
-# 2. Extract major nouns -> classes
-# 3. Extract major verbs -> instance methods
-# 4. Group instance methods into classes
+# first try at using OOP to build an application.
 
 class Paper
   attr_accessor :paper
