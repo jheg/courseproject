@@ -14,7 +14,6 @@ end
 
 # SHARED PLAYER CLASS
 class Player
-  @@num = 0 
   attr_accessor :option, :name
   def initialize(name, option)
     @total_wins = 0
@@ -22,7 +21,6 @@ class Player
     @total_ties = 0    
     @name = name
     @option = option
-    @@num += 0.5
   end
   def msg
     puts "#{name} chooses #{option}"
