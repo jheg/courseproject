@@ -62,10 +62,10 @@ class Game
     @computer = Computer.new
   end
 
-  def compare(p,c)
-    if p == c
+  def compare(player_choice, computer_choice)
+    if player_choice == computer_choice
       "Tie!"
-    elsif p == 'paper' && c == 'rock' || p == 'rock' && c == 'scissors' || p == 'scissors' && c == 'paper'
+    elsif player_choice == 'paper' && computer_choice == 'rock' || player_choice == 'rock' && computer_choice == 'scissors' || player_choice == 'scissors' && computer_choice == 'paper'
       "YOU WIN!"
     else
       "COMPUTER WINS :("  
@@ -75,13 +75,13 @@ class Game
   def play
     replay = 'y'
     begin
-    player.pick_hand
-    computer.pick_hand
-    puts player
-    puts computer
-    puts compare(player.value, computer.value)
-    puts "PLAY AGAIN? (Y/N)"
-    replay = gets.chomp.downcase
+      player.pick_hand
+      computer.pick_hand
+      puts player
+      puts computer
+      puts compare(player.value, computer.value)
+      puts "PLAY AGAIN? (Y/N)"
+      replay = gets.chomp.downcase
     end until replay != 'y'
   end
 end
