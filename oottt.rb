@@ -78,6 +78,25 @@ module GamePlay
     end
   end
 
+  # def computers_turn
+  #   if board.squares.any? { |e| e == ' ' }  
+  #     Game::WINNING_LINES.each do |the_line|
+  #       if board.squares.values_at(*the_line).count('o') == 1 && board.squares.values_at(*the_line).count(' ') == 2
+  #         comp_choice = the_line.keep_if {|e| board.squares[e] == ' ' }.sample
+  #         @board.take_square(c3po , comp_choice)
+  #         board.draw_board
+  #         check_for_winner('o', c3po.name)
+  #         break
+  #       else
+  #         comp_choice = board.squares.each_index.select{|index| board.squares[index] == ' '}.sample
+  #         @board.take_square(c3po , comp_choice)
+  #         check_for_winner('o', c3po.name)   
+  #         break       
+  #       end
+  #     end
+  #   end
+  # end
+
   # takes a marker and checks for 2 in a row with other square empty
   def two_in_a_row?(marker)
     Game::WINNING_LINES.each do |the_line|
