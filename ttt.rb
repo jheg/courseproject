@@ -47,6 +47,29 @@ def check_for_winner(line, squares)
   end
 end
 
+def defend_or_attack(lines, board)
+  # computer needs to defend possible win conditions
+  lines.any? do |line|
+    i = two_in_a_row?(lines, board)
+    if i
+      board[i] = 'o'
+    else
+      board[available_squares(board).sample] = 'o'
+    end
+  end
+end
+
+def two_in_a_row?(lines, hsh)
+    arr = lines.find_index {|l| l.any? {|k| hsh[k] == ' '} }
+    line = lines[arr]
+    binding.pry
+    if hsh[i].values.count('x') == 2
+      return hsh.select{|k,v| v == ' '}.keys.first
+      binding.pry
+    else
+      return false
+    end
+end
 
 # player/computer picks square methods
 def player1(squares) 
@@ -58,13 +81,9 @@ def player1(squares)
         else
           player1(squares)
         end     
-      draw_board(squares)
     end
 end
 
-def defend(squares)
-
-end
 
 def player2(line, squares)
     puts "Computer chooses a square"
@@ -72,9 +91,7 @@ def player2(line, squares)
 
 # if player has two positions in a line and the other is empty defend else attack < not yet implemented
 
-    i = available_squares(squares).sample
-    squares[i] = "o"
-    draw_board(squares)
+    defend_or_attack(line, squares)
 end
 
 # setting the who goes first variable
@@ -88,15 +105,19 @@ if goes_first == 'player1'
   begin
     break if check_for_winner(lines, board_squares) == true
     player1(board_squares)
+    draw_board(board_squares)
     break if check_for_winner(lines, board_squares) == true
     player2(lines, board_squares)
+    draw_board(board_squares)    
   end until available_squares(board_squares).empty?
 elsif goes_first == 'player2'
   begin
     break if check_for_winner(lines, board_squares) == true
     player2(lines, board_squares)
+    draw_board(board_squares)
     break if check_for_winner(lines, board_squares) == true
     player1(board_squares)
+    draw_board(board_squares)
   end until available_squares(board_squares).empty?
 end
 

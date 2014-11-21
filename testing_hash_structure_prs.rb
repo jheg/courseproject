@@ -8,8 +8,6 @@
 # result
 # play again
 
-
-
 def say(msg)
   puts "-----#{msg}-----"
 end
@@ -17,13 +15,19 @@ end
 # SHARED PLAYER CLASS
 class Player
   attr_accessor :option, :name
+
+  update = {:win => 1, :losses => 1, :ties => 1}
+
   def initialize(name, option)
-    @total_wins = 0
-    @total_losses = 0
-    @total_ties = 0    
+    @total_wins = update[:win]
+    @total_losses = update[:losses]
+    @total_ties = update[:ties]    
     @name = name
     @option = option
   end
+
+
+
   def msg
     puts "#{name} chooses #{option}"
   end
@@ -40,19 +44,20 @@ module OpponentsTally
   def message
     "#{name} has won #{@total_wins}, lost #{@total_losses} and tied #{@total_ties} games."
   end 
-  def add_win!
-    @total_wins += 1
-  end
-  def add_loss!
-    @total_losses += 1
-  end
-  def add_tie!
-    @total_ties += 1
+  def stats_update(update)
+    @total_wins += update[:win]
+    @total_losses += update[:losses]
+    @total_ties += update[:ties]
   end
 end
 
 class Opponent < Player
   attr_accessor :total_wins, :total_ties, :total_losses, :option
+  def inialize
+    @total_wins = 0
+    @total_losses = 0
+    @total_ties = 0
+  end
   include OpponentsTally
 end
 
@@ -92,30 +97,31 @@ until play_again != 'y'
   # RESULT & UPDATE STATS
   if player_object.option == the_opponent.option
     puts "DRAW"
-    the_opponent.add_tie!
+    the_opponent.stats_update(ties: 1)
   elsif player_object.option == 'p' && the_opponent.option == 'r'
     puts "PAPER WRAPS ROCK AND STRANGELY THAT MEANS YOU WIN I SUPPOSE"
-    the_opponent.add_loss!
+    the_opponent.stats_update(losses: 1)
   elsif player_object.option == 'r' && the_opponent.option == 's'
     puts "ROCK TOTALLY SMASHES SCISSORS YOU WIN"
-    the_opponent.add_loss!  
+    the_opponent.stats_update(losses: 1)  
   elsif player_object.option == 's' && the_opponent.option == 'p'
     puts "SCISSORS CUTS THROUGH PAPER YOU WIN"
-    the_opponent.add_loss!    
+    the_opponent.stats_update(losses: 1)    
   elsif player_object.option == 'p' && the_opponent.option == 's'
     puts "SCISSORS CUT PAPER AND YOU HAVE PAPER YOU LOSE"
-    the_opponent.add_win!
+    the_opponent.stats_update(win: 1)
   elsif player_object.option == 'r' && the_opponent.option == 'p'
     puts "PAPER COVERS ROCK YOU LOSE"
-    the_opponent.add_win!
+    the_opponent.stats_update(win: 1)
   elsif player_object.option == 's' && the_opponent.option == 'r'
     puts "YOUR SCISSORS GET SMASHED BY ROCK YOU LOSE"
-    the_opponent.add_win!
+    the_opponent.stats_update(win: 1)
   end
 
   # puts Player.info
   say "PLAY AGAIN? (y/n)"
   play_again = gets.chomp
 end
+
 
 

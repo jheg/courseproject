@@ -31,19 +31,19 @@ end
 
 # check for winner method
 def check_for_winner(line, squares)
-  if line.find {|l| l.all? {|k| squares[k] == "x"} }
+  if line.find {|l| l.all? {|k| squares[k] == X} }
     puts "player WINS!!!"
-    return true
-  elsif line.find {|l| l.all? {|k| squares[k] == "o"} }
+    true
+  elsif line.find {|l| l.all? {|k| squares[k] == O} }
     puts "computer wins :("
-    return true
+    true
   end
 end
 
 # checks to see if two in a row
-def two_in_a_row?(hsh, mrkr)
+def two_in_a_row(hsh, mrkr)
   if hsh.values.count(mrkr) == 2
-    return hsh.select{|k,v| v == ' '}.keys.first
+    hsh.select{|k,v| v == ' '}.keys.first
   else
     false
   end
@@ -55,11 +55,11 @@ def player1(squares)
   if available_squares(squares).any?
     puts "Choose an available square from #{available_squares(squares)}"
     i = gets.chomp.to_i
-      if available_squares(squares).include?(i)
-        squares[i] = "x"
-      else
-        player1(squares)
-      end
+    if available_squares(squares).include?(i)
+      squares[i] = X
+    else
+      player1(squares)
+    end
     draw_board(squares)
   end
 end
@@ -74,9 +74,9 @@ def player2(line, squares)
   
   # attack 
   WINNING_LINES.each do |l|
-    defend_this_square = two_in_a_row?({l[0] => squares[l[0]], l[1] => squares[l[1]], l[2] => squares[l[2]]}, O)
+    defend_this_square = two_in_a_row({l[0] => squares[l[0]], l[1] => squares[l[1]], l[2] => squares[l[2]]}, O)
     if defend_this_square
-      squares[defend_this_square] = 'o'
+      squares[defend_this_square] = O
       attacked = true
       break
     end
@@ -85,14 +85,14 @@ def player2(line, squares)
   # defend  
   if attacked == false
     WINNING_LINES.each do |l|
-      defend_this_square = two_in_a_row?({l[0] => squares[l[0]], l[1] => squares[l[1]], l[2] => squares[l[2]]}, X)
+      defend_this_square = two_in_a_row({l[0] => squares[l[0]], l[1] => squares[l[1]], l[2] => squares[l[2]]}, X)
       if defend_this_square
-        squares[defend_this_square] = 'o'
+        squares[defend_this_square] = O
         break
       end 
     end 
   end
-  squares[available_squares(squares).sample] = "o" unless defend_this_square
+  squares[available_squares(squares).sample] = O unless defend_this_square
   draw_board(squares)
 end
 
