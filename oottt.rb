@@ -190,6 +190,7 @@ class Game
     end
   end
 
+  # the play method
   def play
     @board.draw_board
     first_go = [human, c3po].sample
