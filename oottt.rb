@@ -1,5 +1,5 @@
-require('pry')
-require('pry-nav')
+require'pry'
+require'pry-nav'
 
 # TAKES CARE OF BOARD CREATION, AVAILABLE SQUARES, POPULATING SQUARES
 class Board
@@ -85,7 +85,7 @@ class Game
   # OPTION 1 OR 2 ATTACK OR DEFEND
   # COMPUTER WILL ATTACK IF IN WINNING POSITION OR DEFEND IF IN A LOSING POSITION
   def instinct(marker)
-    Game::WINNING_LINES.any? do |the_line|
+    Game::WINNING_LINES.each do |the_line|
       if board.squares.values_at(*the_line).count(marker) == 2 && board.squares.values_at(*the_line).count(' ') == 1
         the_line.each {|e| (board.squares[e] == ' ') ? board.squares[e] = 'o' : e }
         board.draw_board
@@ -96,7 +96,7 @@ class Game
 
   # OPTION 3 
   def start_attack
-    Game::WINNING_LINES.any? do |the_line|
+    Game::WINNING_LINES.each do |the_line|
       if board.squares.values_at(*the_line).count('o') == 1 && board.squares.values_at(*the_line).count(' ') == 2
         comp_choice = the_line.select {|e| board.squares[e] == ' ' }.sample
         @board.take_square(c3po , comp_choice)
