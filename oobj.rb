@@ -45,7 +45,7 @@ class Card
     elsif face == 'A'
       11
     else
-      face.to_i + 10
+      10
     end  
   end
 end
@@ -76,10 +76,6 @@ class Player
     else
       @hand_value
     end
-  end
-
-  def inspect
-    @name
   end
 
   def to_s
@@ -199,6 +195,8 @@ class Game
   def compare(player_name, players_total, dealers_total)
     if players_total > 21
       puts "#{player_name} bust. Dealer wins."
+    elsif players_total == dealers_total
+      puts "#{player_name} has #{players_total} and dealer has #{dealers_total} it's a tie!"
     elsif players_total > dealers_total
       puts "#{player_name} beats dealer with total of #{players_total}"
     elsif dealers_total > 21
