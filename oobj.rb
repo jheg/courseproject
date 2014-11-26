@@ -136,8 +136,26 @@ class Game
     puts "Hand total is #{total}"
   end
 
+  def dealer_show_first_card(dealer)
+    if dealer.hand[0].face == 10 
+      puts " ---   ---" 
+      puts "|#{dealer.hand[0].face} | |   |"
+      puts "|   | |   |"
+      puts "|  #{dealer.hand[0].suit}| |   |"
+      puts " ---   ---"
+    else
+      puts " ---   ---"
+      puts "|#{dealer.hand[0].face}  | |   |"
+      puts "|   | |   |"
+      puts "|  #{dealer.hand[0].suit}| |   |"
+      puts " ---   ---"        
+    end
+  end
+
   def turn(current_player, total, human_totals)
     system 'clear'
+    puts "Dealer:"
+    dealer_show_first_card(dealer)
     puts "Current player: #{current_player.name}"
     display_cards(current_player, total)
     if total == 21
